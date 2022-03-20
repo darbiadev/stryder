@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: check-json
+      - id: trailing-whitespace
+        args: [ --markdown-linebreak-ext=md ]
+      - id: mixed-line-ending
+        args: [ --fix=lf ]
+      - id: end-of-file-fixer
+  - repo: local
+    hooks:
+      - id: rust-linting
+        name: Rust linting
+        description: Run cargo fmt on files included in the commit.
+        entry: cargo fmt --all --
+        pass_filenames: true
+        types: [ file, rust ]
+        language: system
+      - id: rust-clippy
+        name: Rust clippy
+        description: Run cargo clippy on files included in the commit.
+        entry: cargo clippy --all-targets --all-features -- -D clippy::all
+        pass_filenames: false
+        types: [ file, rust ]
+        language: system
