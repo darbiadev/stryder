@@ -15,7 +15,7 @@ mod interaction;
 mod interaction_response;
 
 async fn handle_request(req: HttpRequest, body: String) -> Result<impl Responder> {
-    let peer_public_key_hex = std::env::var("stryder_PUBLIC_KEY").unwrap();
+    let peer_public_key_hex = std::env::var("STRYDER_PUBLIC_KEY").unwrap();
     let peer_public_key_bytes = hex::decode(peer_public_key_hex.as_bytes()).unwrap();
     let peer_public_key =
         signature::UnparsedPublicKey::new(&signature::ED25519, peer_public_key_bytes);
